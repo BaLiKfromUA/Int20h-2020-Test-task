@@ -21,58 +21,55 @@
                                         dark
                                         flat
                                 >
-                                    <v-toolbar-title>Login form</v-toolbar-title>
-                                    <v-spacer></v-spacer>
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on }">
-                                            <v-btn
-                                                    :href="source"
-                                                    icon
-                                                    large
-                                                    target="_blank"
-                                                    v-on="on"
-                                            >
-                                                <v-icon>mdi-code-tags</v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <span>Source</span>
-                                    </v-tooltip>
-                                    <v-tooltip right>
-                                        <template v-slot:activator="{ on }">
-                                            <v-btn
-                                                    icon
-                                                    large
-                                                    href="https://codepen.io/johnjleider/pen/pMvGQO"
-                                                    target="_blank"
-                                                    v-on="on"
-                                            >
-                                                <v-icon>mdi-codepen</v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <span>Codepen</span>
-                                    </v-tooltip>
+                                    <v-toolbar-title>Start page</v-toolbar-title>
                                 </v-toolbar>
                                 <v-card-text>
-                                    <v-form>
-                                        <v-text-field
-                                                label="Login"
-                                                name="login"
-                                                prepend-icon="person"
-                                                type="text"
-                                        ></v-text-field>
+                                    <v-toolbar>
+                                        <v-tabs
+                                                dark
+                                                background-color="primary"
+                                                grow
+                                        >
+                                            <v-tab>
+                                                Input lirycs
+                                            </v-tab>
 
-                                        <v-text-field
-                                                id="password"
-                                                label="Password"
-                                                name="password"
-                                                prepend-icon="lock"
-                                                type="password"
-                                        ></v-text-field>
-                                    </v-form>
+                                            <v-tab>
+                                                Record sound
+                                            </v-tab>
+
+                                            <v-tab-item>
+
+                                                <v-textarea
+                                                        color="teal"
+                                                ><!--TODO: BIND V-MODEL, fix css-->
+                                                    <template v-slot:label>
+                                                        <div>
+                                                            Lirycs
+                                                        </div>
+                                                    </template>
+                                                </v-textarea>
+
+                                            </v-tab-item>
+
+                                            <v-tab-item>
+                                                <audio-recorder
+                                                        upload-url="some url"
+                                                        :attempts="3"
+                                                        :time="2"
+                                                        :before-recording="callback"
+                                                        :after-recording="callback"
+                                                        :before-upload="callback"
+                                                        :successful-upload="callback"
+                                                        :failed-upload="callback"/>
+                                            </v-tab-item>
+
+                                        </v-tabs>
+                                    </v-toolbar>
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="primary">Login</v-btn>
+                                    <v-btn color="primary">Play!</v-btn>
                                 </v-card-actions>
                             </v-card>
                         </v-flex>
@@ -85,7 +82,12 @@
 
 <script>
     export default {
-        name: "StartPage"
+        name: "StartPage",
+        methods: {
+            callback(msg) {
+                console.debug('Event: ', msg)
+            }
+        },
     }
 </script>
 
