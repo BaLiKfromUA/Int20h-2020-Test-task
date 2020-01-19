@@ -14,26 +14,27 @@
                                                 <v-toolbar-title>Start page</v-toolbar-title>
                                             </v-flex>
                                             <v-flex xs12 sm8 md2>
-                                                <v-btn color="primary">Play!</v-btn>
+                                                <v-btn color="primary" v-on:click="sendData">Play!</v-btn>
                                             </v-flex>
                                         </v-layout>
                                     </v-container>
-
                                 </v-toolbar>
                                 <v-card>
                                     <v-toolbar>
-                                        <v-tabs dark background-color="primary" grow slider-color="yellow">
-                                            <v-tab>
+                                        <v-tabs dark background-color="primary" grow slider-color="yellow"
+                                                v-model="selectedTab">
+                                            <v-tab key='input'>
                                                 Input lyrics
                                             </v-tab>
-                                            <v-tab>
+                                            <v-tab key='sound'>
                                                 Record
                                             </v-tab>
 
                                             <v-tab-item>
                                                 <v-card>
-                                                    <v-textarea color="teal">
-                                                        <!--TODO: BIND V-MODEL, fix css-->
+                                                    <v-textarea color="teal"
+                                                                v-model="inputText"
+                                                                counter="counter">
                                                         <template v-slot:label>
                                                             <div>
                                                                 Lirycs
@@ -50,8 +51,8 @@
                                                             <v-card class="audio-recorder" flat>
                                                                 <audio-recorder
                                                                         upload-url="some url"
-                                                                        :attempts="3"
-                                                                        :time="2"
+                                                                        :attempts="1"
+                                                                        :time="1"
                                                                         :before-recording="callback"
                                                                         :after-recording="callback"
                                                                         :before-upload="callback"
@@ -71,17 +72,65 @@
                     </v-layout>
                 </v-container>
             </v-content>
+
+            <!--ERROR POP UP MESSAGE-->
+            <v-row justify="center">
+                <v-dialog v-model="dialog" persistent max-width="290">
+                    <v-card>
+                        <v-card-title class="headline">Input error!</v-card-title>
+                        <v-card-text>
+                            {{errorMessage}}
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-row>
         </v-app>
     </div>
+
 </template>
 
 <script>
     export default {
         name: "StartPage",
+        data: () => ({
+            inputText: '',
+            counter: 0,
+            selectedTab: 0,
+            dialog: false,
+            errorMessage: "",
+        }),
         methods: {
             callback(msg) {
                 console.debug('Event: ', msg)
+            },
+            sendData() {
+                if (this.selectedTab === 0) {
+                    this.sendText();
+                } else {
+                    this.sendAudio();
+                }
+
+            },
+            sendAudio() {
+                // todo: validate and send
+            },
+            sendText() {
+                if (this.inputText === '') {
+                    this.errorMessage = "test message"; // todo: fix message
+                    this.dialog = true;
+                } else {
+                    $.getJSON('https://api.audd.io/findLyrics/?q=' + this.inputText, function (result) {
+                        console.log(result);
+                    });
+                }
             }
+        },
+        mounted() {
+            this.selectedTab = 0;
         },
     }
 </script>
