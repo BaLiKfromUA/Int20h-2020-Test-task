@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <v-content>
-            <game></game>
+            <game/>
         </v-content>
     </div>
 </template>

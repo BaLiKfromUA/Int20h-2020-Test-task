@@ -14,9 +14,6 @@
 
     export default {
         name: "GameProcess",
-        data() {
-            return {};
-        },
         computed: {
             ...mapGetters(["stage"])
         },
