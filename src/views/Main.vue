@@ -1,17 +1,19 @@
 <template>
     <div class="home">
-        <StartPage/>
+        <v-content>
+            <game></game>
+        </v-content>
     </div>
 </template>
 
 <script>
     // @ is an alias to /src
-    import StartPage from '@/components/StartPage.vue'
+    import GameProcess from "../components/GameProcess";
 
     export default {
         name: 'home',
         components: {
-            StartPage: StartPage,
+            "game": GameProcess
         }
     }
 </script>

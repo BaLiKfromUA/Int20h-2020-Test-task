@@ -7,15 +7,23 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         tracks: [],
-        index: -1
+        index: -1,
+        stage: "start"
     },
     mutations: {
         setTracks(state, tracks) {
             state.tracks = tracks;
             state.index = 0;
+        },
+        setStage(state, newStage) {
+            state.stage = newStage;
         }
     },
     getters: {
+        stage(state) {
+            return state.stage;
+        },
+
         getIndex: state => {
             return state.index;
         },

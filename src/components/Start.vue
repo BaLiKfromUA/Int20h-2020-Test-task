@@ -138,7 +138,7 @@
                         } else {
                             let track_array = data.result;
                             global_object.$store.commit("setTracks", track_array);
-                            global_object.$router.push('/result');
+                            global_object.$store.commit("setStage", "verdict");
                         }
                     });
                 }
