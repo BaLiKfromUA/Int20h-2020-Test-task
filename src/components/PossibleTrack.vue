@@ -51,6 +51,14 @@
             tryAgainNo() {
                 // TODO: return to the home page
             }
+        },
+        mounted() {
+            let track = this.$store.getters.getTopTrack;
+
+            if (track !== null) {
+                this.artistName = track["artist"];
+                this.trackName = track["title"];
+            }
         }
     }
 </script>

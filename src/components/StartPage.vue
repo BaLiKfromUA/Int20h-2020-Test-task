@@ -119,28 +119,23 @@
                 // todo: validate and send
             },
             sendText() {
-                let resultData = 'empty'
                 if (this.inputText === '') {
                     this.errorMessage = "test message"; // todo: fix message
                     this.dialog = true;
                 } else {
-                    $.getJSON('https://api.audd.io/findLyrics/?q=' + this.inputText, function (result) {
-                        console.log(result);
-                        resultData = result
-                    }).then(() => {
-                        if (resultData.result === undefined) {
-                            // commented for debugging purposes
-                            // window.location.href = "/"
-                        }
-                        if (resultData.result[0].artist === '' || resultData.result[0].artist == null ||
-                            resultData.result[0].title === '' || resultData.result[0].title == null) {
-                            // commented for debugging purposes
-                            // window.location.href = "/"
-                        }
+                    const global_object = this;// КОСТЫЛЬ:(
 
-                    }, () => {
-                        // commented for debugging purposes
-                        // window.location.href = "/"
+                    $.getJSON('https://api.audd.io/findLyrics/?q=' + this.inputText, function (data,) {
+                        console.log(data);
+
+                        if (data === null || data.status === "error") {
+                            global_object.errorMessage = "test message"; // todo: fix message
+                            global_object.dialog = true;
+                        } else {
+                            let track_array = data.result;
+                            global_object.$store.commit("setTracks", track_array);
+                            global_object.$router.push('/result');
+                        }
                     });
                 }
             }
