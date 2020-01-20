@@ -28,10 +28,10 @@
     export default {
         name: "PossibleTrack",
         data: () => ({
-            // TODO: either send counter value to the home page or edit the correct() method to edit the one there
             artistName: "Artist",
             trackName: "Track name",
-            link: "https://www.deezer.com/plugins/player?format=square&autoplay=false&playlist=false&width=250&height=250&color=ff0000&layout=&size=medium&type=tracks&id=3135556&app_id=1",
+            trackId: "85963521",
+            link: "",
             counter: 0,
             showTryAgain: false
         }),
@@ -58,8 +58,19 @@
             if (track !== null) {
                 this.artistName = track["artist"];
                 this.trackName = track["title"];
-                console.log(track["deezer"]["id"]);
+
+                const global_object = this;// КОСТЫЛЬ:(
+
+
+                $.getJSON('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=artist:"' + this.artistName + '" track:"' + this.trackName + '"', function (data) {
+                    console.log(data)
+
+                    global_object.trackId = data["data"][0]["id"];
+                    global_object.link = "https://www.deezer.com/plugins/player?format=square&autoplay=false&playlist=false&width=250&height=250&color=ff0000&layout=&size=medium&type=tracks&id=" + global_object.trackId + "&app_id=1"
+                });
             }
+
+
         }
     }
 </script>

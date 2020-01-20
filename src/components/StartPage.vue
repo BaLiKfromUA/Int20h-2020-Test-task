@@ -127,12 +127,10 @@
 
                     var params = {
                         'q': this.inputText,
-                        'return': 'timecode,apple_music,deezer,spotify',
                         'api_token': '36351251f0a904a517a8e22555117a41'
                     };
 
                     $.getJSON('https://api.audd.io/findLyrics/?jsonp=?', params, function (data) {
-                        console.log(data);
 
                         if (data === null || data.status === "error") {
                             global_object.errorMessage = "test message"; // todo: fix message
