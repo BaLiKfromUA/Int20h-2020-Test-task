@@ -28,7 +28,7 @@
     export default {
         name: "PossibleTrack",
         data: () => ({
-            // TODO: either send this value to the home page or edit the correct() method to edit the one there
+            // TODO: either send counter value to the home page or edit the correct() method to edit the one there
             artistName: "Artist",
             trackName: "Track name",
             link: "https://www.deezer.com/plugins/player?format=square&autoplay=false&playlist=false&width=250&height=250&color=ff0000&layout=&size=medium&type=tracks&id=3135556&app_id=1",

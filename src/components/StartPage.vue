@@ -119,12 +119,28 @@
                 // todo: validate and send
             },
             sendText() {
+                let resultData = 'empty'
                 if (this.inputText === '') {
                     this.errorMessage = "test message"; // todo: fix message
                     this.dialog = true;
                 } else {
                     $.getJSON('https://api.audd.io/findLyrics/?q=' + this.inputText, function (result) {
                         console.log(result);
+                        resultData = result
+                    }).then(() => {
+                        if (resultData.result === undefined) {
+                            // commented for debugging purposes
+                            // window.location.href = "/"
+                        }
+                        if (resultData.result[0].artist === '' || resultData.result[0].artist == null ||
+                            resultData.result[0].title === '' || resultData.result[0].title == null) {
+                            // commented for debugging purposes
+                            // window.location.href = "/"
+                        }
+
+                    }, () => {
+                        // commented for debugging purposes
+                        // window.location.href = "/"
                     });
                 }
             }
