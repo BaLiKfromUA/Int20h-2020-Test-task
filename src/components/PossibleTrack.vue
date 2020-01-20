@@ -1,13 +1,13 @@
 <template>
     <v-card max-width="350" class="mx-auto">
-        <v-card-title>Artist</v-card-title>
-        <v-card-subtitle>Track name</v-card-subtitle>
+        <v-card-title>{{artistName}}</v-card-title>
+        <v-card-subtitle>{{trackName}}</v-card-subtitle>
         <v-card-text>
             <iframe
                     scrolling="no"
                     frameborder="0"
                     allowtransparency="true"
-                    src="https://www.deezer.com/plugins/player?format=square&autoplay=false&playlist=false&width=250&height=250&color=ff0000&layout=&size=medium&type=tracks&id=3135556&app_id=1"
+                    :src=link
                     width="250"
                     height="250"
                     class="ml-5"/>
@@ -29,6 +29,9 @@
         name: "PossibleTrack",
         data: () => ({
             // TODO: either send this value to the home page or edit the correct() method to edit the one there
+            artistName: "Artist",
+            trackName: "Track name",
+            link: "https://www.deezer.com/plugins/player?format=square&autoplay=false&playlist=false&width=250&height=250&color=ff0000&layout=&size=medium&type=tracks&id=3135556&app_id=1",
             counter: 0,
             showTryAgain: false
         }),
