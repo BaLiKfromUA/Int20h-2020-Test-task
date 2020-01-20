@@ -139,7 +139,6 @@
     .elevation-24 {
         top: -250px
     }
-
     .audio-recorder {
         align-items: center;
     }
