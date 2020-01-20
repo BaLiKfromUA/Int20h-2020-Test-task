@@ -58,6 +58,7 @@
             if (track !== null) {
                 this.artistName = track["artist"];
                 this.trackName = track["title"];
+                console.log(track["deezer"]["id"]);
             }
         }
     }
