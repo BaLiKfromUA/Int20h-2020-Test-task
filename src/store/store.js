@@ -6,16 +6,34 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        stage: "start",
+        result: "",
         tracks: [],
-        index: -1
+        index: -1,
+        //todo:api in state??
     },
     mutations: {
-        setTracks(state, tracks) {
+        startNewGame: state => {
+            state.stage = "start";
+            state.tracks = [];
+            state.index = -1;
+        },
+        showPredictionResult(state, tracks) {
+            state.stage = "verdict";
             state.tracks = tracks;
             state.index = 0;
+        },
+        showResult(state, result){
+            state.stage = "result";
+            state.result = result
         }
+
     },
     getters: {
+        stage: state => {
+            return state.stage;
+        },
+
         getIndex: state => {
             return state.index;
         },

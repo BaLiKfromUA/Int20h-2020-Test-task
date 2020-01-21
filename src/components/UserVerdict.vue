@@ -4,6 +4,7 @@
         <v-card-subtitle>{{trackName}}</v-card-subtitle>
         <v-card-text>
             <iframe
+                    v-if="hasLink"
                     scrolling="no"
                     frameborder="0"
                     allowtransparency="true"
@@ -11,9 +12,11 @@
                     width="250"
                     height="250"
                     class="ml-5"/>
+            <span v-if="!hasLink">This track is not on Deezer!</span>
         </v-card-text>
         <v-card-actions v-if="!showTryAgain">
             <v-btn text color="green" v-on:click="correct">Correct</v-btn>
+            <v-spacer/>
             <v-btn text color="red" v-on:click="incorrect">Incorrect</v-btn>
         </v-card-actions>
         <v-card-actions v-if="showTryAgain">
@@ -25,6 +28,8 @@
 </template>
 
 <script>
+    import MusicAPI from "../util/api";
+
     export default {
         name: "PossibleTrack",
         data: () => ({
@@ -33,7 +38,12 @@
             trackId: "85963521",
             link: "",
             counter: 0,
-            showTryAgain: false
+            showTryAgain: false,
+            hasLink: false,
+            api: new MusicAPI({
+                baseURL: `https://cors-anywhere.herokuapp.com/https://api.audd.io/findLyrics/`,
+                token: "36351251f0a904a517a8e22555117a41"
+            })
         }),
         methods: {
             correct() {
@@ -49,28 +59,23 @@
             },
 
             tryAgainNo() {
-                // TODO: return to the home page
+                this.$store.commit("startNewGame");
             }
         },
-        mounted() {
+        async mounted() {
             let track = this.$store.getters.getTopTrack;
 
             if (track !== null) {
                 this.artistName = track["artist"];
                 this.trackName = track["title"];
 
-                const global_object = this;// КОСТЫЛЬ:(
+                const response = await this.api.getTrackURL({artist: this.artistName, title: this.trackName});
 
-
-                $.getJSON('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=artist:"' + this.artistName + '" track:"' + this.trackName + '"', function (data) {
-                    console.log(data)
-
-                    global_object.trackId = data["data"][0]["id"];
-                    global_object.link = "https://www.deezer.com/plugins/player?format=square&autoplay=false&playlist=false&width=250&height=250&color=ff0000&layout=&size=medium&type=tracks&id=" + global_object.trackId + "&app_id=1"
-                });
+                this.hasLink = !(response === false);
+                this.link = response;
+            } else {
+                this.hasLink = true;
             }
-
-
         }
     }
 </script>
