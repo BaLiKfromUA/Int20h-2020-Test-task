@@ -10,6 +10,7 @@ export default new Vuex.Store({
         result: "",
         tracks: [],
         index: -1,
+        //todo:api in state??
     },
     mutations: {
         startNewGame: state => {

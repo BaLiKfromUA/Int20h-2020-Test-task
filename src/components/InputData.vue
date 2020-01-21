@@ -101,9 +101,12 @@
         data: () => ({
             inputText: '',
             counter: 0,
+
             selectedTab: 0,
+
             dialog: false,
             errorMessage: "",
+
             api: new MusicAPI({
                 baseURL: `https://cors-anywhere.herokuapp.com/https://api.audd.io/findLyrics/`,
                 token: "36351251f0a904a517a8e22555117a41"
@@ -131,7 +134,6 @@
                         this.errorMessage = "Response error. Check console log!";
                         this.dialog = true;
                     } else {
-                        console.log(response);
                         let track_array = response.data.result;
                         this.$store.commit("showPredictionResult", track_array);
                     }
