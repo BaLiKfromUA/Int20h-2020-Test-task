@@ -1,16 +1,16 @@
 <template>
     <div>
-        <start-page v-if="stage === 'start'"></start-page>
-        <possible-track v-if="stage === 'verdict'"></possible-track>
-        <result v-if="stage === 'result'"></result>
+        <start-page v-if="stage === 'start'"/>
+        <possible-track v-if="stage === 'verdict'"/>
+        <result v-if="stage === 'result'"/>
     </div>
 </template>
 
 <script>
     import {mapGetters} from "vuex";
-    import StartPage from "./Start";
-    import PossibleTrack from "./Verdict";
-    import Result from "./Result";
+    import StartPage from "./InputData";
+    import PossibleTrack from "./UserVerdict";
+    import Result from "./GameResult";
 
     export default {
         name: "GameProcess",

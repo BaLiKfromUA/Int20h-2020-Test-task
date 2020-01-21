@@ -14,6 +14,7 @@
         </v-card-text>
         <v-card-actions v-if="!showTryAgain">
             <v-btn text color="green" v-on:click="correct">Correct</v-btn>
+            <v-spacer/>
             <v-btn text color="red" v-on:click="incorrect">Incorrect</v-btn>
         </v-card-actions>
         <v-card-actions v-if="showTryAgain">
@@ -49,7 +50,7 @@
             },
 
             tryAgainNo() {
-                // TODO: return to the home page
+                this.$store.commit("startNewGame");
             }
         },
         mounted() {

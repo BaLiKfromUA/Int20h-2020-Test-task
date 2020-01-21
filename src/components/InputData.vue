@@ -128,13 +128,12 @@
                     const response = await this.api.getSongByText({text: this.inputText});
 
                     if (response === undefined || response.data.status === "error") {
-                        this.errorMessage = "test message"; // todo: fix message
+                        this.errorMessage = "Response error. Check console log!";
                         this.dialog = true;
                     } else {
                         console.log(response);
                         let track_array = response.data.result;
-                        this.$store.commit("setTracks", track_array);
-                        this.$store.commit("setStage", "verdict");
+                        this.$store.commit("showPredictionResult", track_array);
                     }
                 }
             },
