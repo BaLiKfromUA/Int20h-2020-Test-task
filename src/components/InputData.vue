@@ -4,16 +4,16 @@
             <v-container fluid>
                 <v-layout align-center justify-center>
                     <v-flex xs12 sm8 md6 lg4 xl4>
-                        <v-card min-width="520px" max-width="520px" class="mx-auto">
-                            <v-toolbar color="#222255" dark flat>
-                                <v-container>
+                        <v-card max-width="520px" class="mx-auto">
+                            <v-toolbar color="#222255" dark flat class="grow-shrink-1">
+                                <v-container fluid>
                                     <v-layout align-center justify-center>
-                                        <v-flex xs4 sm4 md4/>
-                                        <v-flex xs4 sm4 md4>
-                                            <v-toolbar-title>Search a song</v-toolbar-title>
+                                        <v-flex xs5/>
+                                        <v-flex xs4>
+                                            <v-toolbar-title>Search</v-toolbar-title>
                                         </v-flex>
-                                        <v-flex xs2 sm2 md2/>
-                                        <v-flex xs2 sm2 md2>
+                                        <v-flex xs1/>
+                                        <v-flex xs2>
                                             <v-btn color="#222255" v-on:click="sendData">Play!</v-btn>
                                         </v-flex>
                                     </v-layout>
@@ -45,25 +45,25 @@
                                             </v-card>
                                         </v-tab-item>
 
-                                        <v-tab-item>
-                                            <v-container>
-                                                <v-layout align-center justify-center>
-                                                    <v-flex xs10 sm10 md10>
-                                                        <v-card id="audio-recorder" flat class="mx-auto">
-                                                            <audio-recorder
-                                                                    upload-url="some url"
-                                                                    :attempts="1"
-                                                                    :time="1"
-                                                                    :before-recording="callback"
-                                                                    :after-recording="callback"
-                                                                    :before-upload="callback"
-                                                                    :successful-upload="callback"
-                                                                    :failed-upload="callback"/>
-                                                        </v-card>
-                                                    </v-flex>
-                                                </v-layout>
-                                            </v-container>
-                                        </v-tab-item>
+<!--                                        <v-tab-item>-->
+<!--                                            <v-container>-->
+<!--                                                <v-layout align-center justify-center>-->
+<!--                                                    <v-flex xs10 sm10 md10 class="flex-shrink-1">-->
+<!--                                                        <v-card id="audio-recorder" flat class="mx-auto">-->
+<!--                                                            <audio-recorder-->
+<!--                                                                    upload-url="some url"-->
+<!--                                                                    :attempts="1"-->
+<!--                                                                    :time="1"-->
+<!--                                                                    :before-recording="callback"-->
+<!--                                                                    :after-recording="callback"-->
+<!--                                                                    :before-upload="callback"-->
+<!--                                                                    :successful-upload="callback"-->
+<!--                                                                    :failed-upload="callback"/>-->
+<!--                                                        </v-card>-->
+<!--                                                    </v-flex>-->
+<!--                                                </v-layout>-->
+<!--                                            </v-container>-->
+<!--                                        </v-tab-item>-->
                                     </v-tabs>
                                 </v-toolbar>
                             </v-card>
@@ -149,7 +149,7 @@
 </script>
 
 <style scoped>
-    #audio-recorder {
-        align-items: center;
-    }
+    /*#audio-recorder {*/
+    /*    align-items: center;*/
+    /*}*/
 </style>
