@@ -94,6 +94,8 @@
 </template>
 
 <script>
+    import MusicAPI from "../util/api";
+
     export default {
         name: "StartPage",
         data: () => ({
@@ -102,47 +104,43 @@
             selectedTab: 0,
             dialog: false,
             errorMessage: "",
+            api: new MusicAPI({
+                baseURL: `https://cors-anywhere.herokuapp.com/https://api.audd.io/findLyrics/`,
+                token: "36351251f0a904a517a8e22555117a41"
+            })
         }),
         methods: {
             callback(msg) {
                 console.debug('Event: ', msg)
             },
-            sendData() {
+            async sendData() {
                 if (this.selectedTab === 0) {
-                    this.sendText();
+                    await this.sendText();
                 } else {
                     this.sendAudio();
                 }
-
             },
-            sendAudio() {
-                // todo: validate and send
-            },
-            sendText() {
+            async sendText() {
                 if (this.inputText === '') {
                     this.errorMessage = "test message"; // todo: fix message
                     this.dialog = true;
                 } else {
-                    const global_object = this;// КОСТЫЛЬ:(
+                    const response = await this.api.getSongByText({text: this.inputText});
 
-                    var params = {
-                        'q': this.inputText,
-                        'api_token': '36351251f0a904a517a8e22555117a41'
-                    };
-
-                    $.getJSON('https://api.audd.io/findLyrics/?jsonp=?', params, function (data) {
-
-                        if (data === null || data.status === "error") {
-                            global_object.errorMessage = "test message"; // todo: fix message
-                            global_object.dialog = true;
-                        } else {
-                            let track_array = data.result;
-                            global_object.$store.commit("setTracks", track_array);
-                            global_object.$store.commit("setStage", "verdict");
-                        }
-                    });
+                    if (response === undefined || response.data.status === "error") {
+                        this.errorMessage = "test message"; // todo: fix message
+                        this.dialog = true;
+                    } else {
+                        console.log(response);
+                        let track_array = response.data.result;
+                        this.$store.commit("setTracks", track_array);
+                        this.$store.commit("setStage", "verdict");
+                    }
                 }
-            }
+            },
+            sendAudio() {
+                // todo: validate and send
+            },
         },
         mounted() {
             this.selectedTab = 0;
