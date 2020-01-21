@@ -3,9 +3,14 @@
         <v-app>
             <v-content>
                 <v-container fluid fill-height>
-                    <v-layout align-center justify-center>
+                    <v-layout align-start justify-center>
                         <v-flex xs12 sm6 md6 lg4 xl4>
                             <v-card max-width="350" min-width="350" class="mx-auto">
+                                <v-toolbar color="#222255" dark>
+                                    <v-toolbar-title>
+                                        Prediction - Attempt {{counter}}/{{maxAttempts}}
+                                    </v-toolbar-title>
+                                </v-toolbar>
                                 <v-card-title>{{artistName}}</v-card-title>
                                 <v-card-subtitle>{{trackName}}</v-card-subtitle>
                                 <v-card-text>
@@ -56,6 +61,7 @@
             trackId: "85963521",
             link: "",
             counter: 0,
+            maxAttempts: 5,
             showTryAgain: false,
             hasLink: false,
             api: new MusicAPI({
@@ -97,3 +103,9 @@
         }
     }
 </script>
+
+<style>
+    #titleBar {
+        color: white
+    }
+</style>

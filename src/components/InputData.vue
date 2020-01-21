@@ -5,7 +5,7 @@
                 <v-layout align-center justify-center>
                     <v-flex xs12 sm8 md6 lg4 xl4>
                         <v-card max-width="500px" class="mx-auto">
-                            <v-toolbar color="#222255" dark flat class="grow-shrink-1">
+                            <v-toolbar color="#222255" dark flat class="flex-shrink-1">
                                 <v-container fluid>
                                     <v-layout align-center justify-center>
                                         <v-flex xs6/>
@@ -14,37 +14,34 @@
                                         </v-flex>
                                         <v-flex xs1/>
                                         <v-flex xs3>
-                                            <v-btn color="#222255" v-on:click="sendData">Play!</v-btn>
+<!--                                            <v-btn color="#222255" v-on:click="sendData">Play!</v-btn>-->
                                         </v-flex>
                                     </v-layout>
 
                                 </v-container>
                             </v-toolbar>
                             <v-card>
-                                <v-toolbar>
-                                    <v-tabs dark background-color="#222255" grow slider-color="yellow"
-                                            v-model="selectedTab">
-                                        <v-tab key='input'>
-                                            Input lyrics
-                                        </v-tab>
-                                        <v-tab key='sound'>
-                                            Record
-                                        </v-tab>
-
-                                        <v-tab-item>
-                                            <v-card>
-                                                <v-textarea color="teal"
-                                                            v-model="inputText"
-                                                            counter="counter">
-                                                    <template v-slot:label>
-                                                        <div>
-                                                            Lyrics
-                                                        </div>
-                                                    </template>
-                                                </v-textarea>
-                                            </v-card>
-                                        </v-tab-item>
-
+                                <v-tabs dark background-color="#222255" grow slider-color="yellow"
+                                        v-model="selectedTab">
+                                    <v-tab key='input'>
+                                        Input lyrics
+                                    </v-tab>
+<!--                                        <v-tab key='sound'>-->
+<!--                                            Record-->
+<!--                                        </v-tab>-->
+                                    <v-tab-item>
+                                        <v-card>
+                                            <v-textarea color="teal"
+                                                        v-model="inputText"
+                                                        counter="counter">
+                                                <template v-slot:label>
+                                                    <div>
+                                                        Lyrics
+                                                    </div>
+                                                </template>
+                                            </v-textarea>
+                                        </v-card>
+                                    </v-tab-item>
 <!--                                        <v-tab-item>-->
 <!--                                            <v-container>-->
 <!--                                                <v-layout align-center justify-center>-->
@@ -64,7 +61,12 @@
 <!--                                                </v-layout>-->
 <!--                                            </v-container>-->
 <!--                                        </v-tab-item>-->
-                                    </v-tabs>
+                                </v-tabs>
+                                <v-toolbar color="#222255">
+                                    <v-toolbar-items class="justify-end">
+                                        <v-spacer/>
+                                        <v-btn id="playButton" color="#222255" v-on:click="sendData">Play</v-btn>
+                                    </v-toolbar-items>
                                 </v-toolbar>
                             </v-card>
                         </v-card>
@@ -152,4 +154,7 @@
     /*#audio-recorder {*/
     /*    align-items: center;*/
     /*}*/
+    #playButton {
+        color: white
+    }
 </style>
