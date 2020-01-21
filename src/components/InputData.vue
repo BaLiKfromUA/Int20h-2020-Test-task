@@ -1,22 +1,24 @@
 <template>
-    <div id="app">
-        <v-app id="inspire">
+    <div>
+        <v-app>
             <v-content>
                 <v-container fluid fill-height>
                     <v-layout align-start justify-center>
-                        <v-flex xs12 sm8 md4>
-                            <v-card class="elevation-24">
+                        <v-flex xs12 sm12 md8 lg6 xl6>
+                            <v-card min-width="520.33px" max-width="520.33px" class="mx-auto">
                                 <v-toolbar color="primary" dark flat>
                                     <v-container>
-                                        <v-layout align-center justify-end>
-                                            <v-flex xs12 sm8 md5/>
-                                            <v-flex xs12 sm8 md5>
-                                                <v-toolbar-title>Start page</v-toolbar-title>
+                                        <v-layout align-center justify-center>
+                                            <v-flex xs4 sm4 md4/>
+                                            <v-flex xs4 sm4 md4>
+                                                <v-toolbar-title>Search a song</v-toolbar-title>
                                             </v-flex>
-                                            <v-flex xs12 sm8 md2>
+                                            <v-flex xs2 sm2 md2/>
+                                            <v-flex xs2 sm2 md2>
                                                 <v-btn color="primary" v-on:click="sendData">Play!</v-btn>
                                             </v-flex>
                                         </v-layout>
+
                                     </v-container>
                                 </v-toolbar>
                                 <v-card>
@@ -47,7 +49,7 @@
                                             <v-tab-item>
                                                 <v-container>
                                                     <v-layout align-center justify-center>
-                                                        <v-flex xs12 sm8 md10>
+                                                        <v-flex xs10 sm10 md10>
                                                             <v-card class="audio-recorder" flat>
                                                                 <audio-recorder
                                                                         upload-url="some url"
@@ -63,7 +65,6 @@
                                                     </v-layout>
                                                 </v-container>
                                             </v-tab-item>
-
                                         </v-tabs>
                                     </v-toolbar>
                                 </v-card>
