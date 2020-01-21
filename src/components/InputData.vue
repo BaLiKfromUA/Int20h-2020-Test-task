@@ -4,16 +4,16 @@
             <v-container fluid>
                 <v-layout align-center justify-center>
                     <v-flex xs12 sm8 md6 lg4 xl4>
-                        <v-card max-width="520px" class="mx-auto">
+                        <v-card max-width="500px" class="mx-auto">
                             <v-toolbar color="#222255" dark flat class="grow-shrink-1">
                                 <v-container fluid>
                                     <v-layout align-center justify-center>
-                                        <v-flex xs5/>
-                                        <v-flex xs4>
+                                        <v-flex xs6/>
+                                        <v-flex xs3>
                                             <v-toolbar-title>Search</v-toolbar-title>
                                         </v-flex>
                                         <v-flex xs1/>
-                                        <v-flex xs2>
+                                        <v-flex xs3>
                                             <v-btn color="#222255" v-on:click="sendData">Play!</v-btn>
                                         </v-flex>
                                     </v-layout>
