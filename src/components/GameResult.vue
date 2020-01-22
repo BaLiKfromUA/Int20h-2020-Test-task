@@ -23,16 +23,21 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
         name: "Result",
 
-        props: {
-            playerWon: Boolean
-        },
+        computed: {
+            ...mapGetters(["playerWon"]),
 
+            winner: function () {
+                return this.playerWon ? "Player" : "Computer";
+            }
+        },
         methods: {
             playAgain() {
-                document.location.href = ""
+                this.$store.commit("startNewGame");
             },
 
             allResults() {
