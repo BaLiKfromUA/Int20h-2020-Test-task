@@ -9,7 +9,9 @@ export default new Vuex.Store({
         stage: "start",
         tracks: [],
         index: -1,
-        playerWon: false
+        playerWon: false,
+        userScore: 0,
+        computerScore: 0
     },
     mutations: {
         startNewGame: state => {
@@ -25,6 +27,13 @@ export default new Vuex.Store({
         },
         showResult(state, result) {
             state.stage = "result";
+
+            if (result === true) {
+                ++state.userScore;
+            } else {
+                ++state.computerScore;
+            }
+
             state.playerWon = result
         }
 
@@ -48,6 +57,14 @@ export default new Vuex.Store({
 
         playerWon: state => {
             return state.playerWon;
+        },
+
+        playerScore: state => {
+            return state.userScore;
+        },
+
+        computerScore: state => {
+            return state.computerScore;
         }
     }
 })
