@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-app id="bg">
         <div>
             <v-toolbar app id="header">
                 <v-toolbar-title>
@@ -13,7 +13,7 @@
                 <div>Footer with chto-to</div>
             </v-footer>
         </div>
-    </div>
+    </v-app>
 </template>
 
 <script>
@@ -43,5 +43,10 @@
         background-color: #222255;
         color: whitesmoke;
         font-family: "Roboto", sans-serif;
+    }
+    #bg {
+        background: #3A1C71;
+        background: -webkit-linear-gradient(to bottom, #FFAF7B, #D76D77, #3A1C71);
+        background: linear-gradient(to bottom, #FFAF7B, #D76D77, #3A1C71);
     }
 </style>

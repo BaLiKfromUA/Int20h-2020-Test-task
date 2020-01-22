@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-app>
+        <v-app id="bg">
             <v-content>
                 <v-container fluid fill-height>
                     <v-layout align-start justify-center>
@@ -105,7 +105,5 @@
 </script>
 
 <style>
-    #titleBar {
-        color: white
-    }
+
 </style>

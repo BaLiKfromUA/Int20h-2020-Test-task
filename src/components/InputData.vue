@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app id="bg">
         <v-content>
             <v-container fluid>
                 <v-layout align-center justify-center>
@@ -62,11 +62,12 @@
 <!--                                            </v-container>-->
 <!--                                        </v-tab-item>-->
                                 </v-tabs>
-                                <v-toolbar color="#222255">
-                                    <v-toolbar-items class="justify-end">
-                                        <v-spacer/>
-                                        <v-btn id="playButton" color="#222255" v-on:click="sendData">Play</v-btn>
-                                    </v-toolbar-items>
+                                <v-toolbar dark color="#222255" v-on:click="sendData">
+                                    <v-layout align-center justify-center>
+                                        <v-toolbar-title>
+                                            Play
+                                        </v-toolbar-title>
+                                    </v-layout>
                                 </v-toolbar>
                             </v-card>
                         </v-card>
