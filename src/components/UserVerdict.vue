@@ -71,7 +71,7 @@
         }),
         methods: {
             correct() {
-                this.counter++
+                this.$store.commit("showResult", false);
             },
 
             incorrect() {
@@ -83,19 +83,19 @@
             },
 
             tryAgainNo() {
-                this.$store.commit("startNewGame")
+                this.$store.commit("showResult", true);
             }
         },
         async mounted() {
-            let track = this.$store.getters.getTopTrack
+            let track = this.$store.getters.getTopTrack;
 
             if (track !== null) {
-                this.artistName = track["artist"]
-                this.trackName = track["title"]
+                this.artistName = track["artist"];
+                this.trackName = track["title"];
 
-                const response = await this.api.getTrackURL({artist: this.artistName, title: this.trackName})
+                const response = await this.api.getTrackURL({artist: this.artistName, title: this.trackName});
 
-                this.hasLink = !(response === false)
+                this.hasLink = !(response === false);
                 this.link = response
             } else {
                 this.hasLink = true

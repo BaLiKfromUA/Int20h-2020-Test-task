@@ -7,25 +7,34 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         stage: "start",
-        result: "",
         tracks: [],
         index: -1,
-        //todo:api in state??
+        playerWon: false,
+        userScore: 0,
+        computerScore: 0
     },
     mutations: {
         startNewGame: state => {
             state.stage = "start";
             state.tracks = [];
             state.index = -1;
+            state.playerWon = false;
         },
         showPredictionResult(state, tracks) {
             state.stage = "verdict";
             state.tracks = tracks;
             state.index = 0;
         },
-        showResult(state, result){
+        showResult(state, result) {
             state.stage = "result";
-            state.result = result
+
+            if (result === true) {
+                ++state.userScore;
+            } else {
+                ++state.computerScore;
+            }
+
+            state.playerWon = result
         }
 
     },
@@ -44,6 +53,18 @@ export default new Vuex.Store({
             }
 
             return state.tracks[state.index++];
+        },
+
+        playerWon: state => {
+            return state.playerWon;
+        },
+
+        playerScore: state => {
+            return state.userScore;
+        },
+
+        computerScore: state => {
+            return state.computerScore;
         }
     }
 })
