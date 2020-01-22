@@ -14,7 +14,7 @@
                                         </v-flex>
                                         <v-flex xs1/>
                                         <v-flex xs3>
-<!--                                            <v-btn color="#222255" v-on:click="sendData">Play!</v-btn>-->
+                                            <!--                                            <v-btn color="#222255" v-on:click="sendData">Play!</v-btn>-->
                                         </v-flex>
                                     </v-layout>
 
@@ -26,9 +26,9 @@
                                     <v-tab key='input'>
                                         Input lyrics
                                     </v-tab>
-<!--                                        <v-tab key='sound'>-->
-<!--                                            Record-->
-<!--                                        </v-tab>-->
+                                    <!--                                        <v-tab key='sound'>-->
+                                    <!--                                            Record-->
+                                    <!--                                        </v-tab>-->
                                     <v-tab-item>
                                         <v-card>
                                             <v-textarea color="teal"
@@ -42,25 +42,25 @@
                                             </v-textarea>
                                         </v-card>
                                     </v-tab-item>
-<!--                                        <v-tab-item>-->
-<!--                                            <v-container>-->
-<!--                                                <v-layout align-center justify-center>-->
-<!--                                                    <v-flex xs10 sm10 md10 class="flex-shrink-1">-->
-<!--                                                        <v-card id="audio-recorder" flat class="mx-auto">-->
-<!--                                                            <audio-recorder-->
-<!--                                                                    upload-url="some url"-->
-<!--                                                                    :attempts="1"-->
-<!--                                                                    :time="1"-->
-<!--                                                                    :before-recording="callback"-->
-<!--                                                                    :after-recording="callback"-->
-<!--                                                                    :before-upload="callback"-->
-<!--                                                                    :successful-upload="callback"-->
-<!--                                                                    :failed-upload="callback"/>-->
-<!--                                                        </v-card>-->
-<!--                                                    </v-flex>-->
-<!--                                                </v-layout>-->
-<!--                                            </v-container>-->
-<!--                                        </v-tab-item>-->
+                                    <!--                                        <v-tab-item>-->
+                                    <!--                                            <v-container>-->
+                                    <!--                                                <v-layout align-center justify-center>-->
+                                    <!--                                                    <v-flex xs10 sm10 md10 class="flex-shrink-1">-->
+                                    <!--                                                        <v-card id="audio-recorder" flat class="mx-auto">-->
+                                    <!--                                                            <audio-recorder-->
+                                    <!--                                                                    upload-url="some url"-->
+                                    <!--                                                                    :attempts="1"-->
+                                    <!--                                                                    :time="1"-->
+                                    <!--                                                                    :before-recording="callback"-->
+                                    <!--                                                                    :after-recording="callback"-->
+                                    <!--                                                                    :before-upload="callback"-->
+                                    <!--                                                                    :successful-upload="callback"-->
+                                    <!--                                                                    :failed-upload="callback"/>-->
+                                    <!--                                                        </v-card>-->
+                                    <!--                                                    </v-flex>-->
+                                    <!--                                                </v-layout>-->
+                                    <!--                                            </v-container>-->
+                                    <!--                                        </v-tab-item>-->
                                 </v-tabs>
                                 <v-toolbar dark color="#222255" v-on:click="sendData">
                                     <v-layout align-center justify-center>
@@ -96,7 +96,7 @@
 </template>
 
 <script>
-    import MusicAPI from "../util/api"
+    import AudDAPI from "../util/audd_api"
 
     export default {
         name: "StartPage",
@@ -109,7 +109,7 @@
             dialog: false,
             errorMessage: "",
 
-            api: new MusicAPI({
+            api: new AudDAPI({
                 baseURL: `https://cors-anywhere.herokuapp.com/https://api.audd.io/findLyrics/`,
                 token: "36351251f0a904a517a8e22555117a41"
             })
@@ -127,16 +127,16 @@
             },
             async sendText() {
                 if (this.inputText === '') {
-                    this.errorMessage = "test message" // todo: fix message
+                    this.errorMessage = "test message"; // todo: fix message
                     this.dialog = true
                 } else {
-                    const response = await this.api.getSongByText({text: this.inputText})
+                    const response = await this.api.getSongByText({text: this.inputText});
 
                     if (response === undefined || response.data.status === "error") {
-                        this.errorMessage = "Response error. Check console log!"
+                        this.errorMessage = "Response error. Check console log!";
                         this.dialog = true
                     } else {
-                        let track_array = response.data.result
+                        let track_array = response.data.result;
                         this.$store.commit("showPredictionResult", track_array)
                     }
                 }

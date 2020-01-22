@@ -51,7 +51,7 @@
 </template>
 
 <script>
-    import MusicAPI from "../util/api"
+    import DeezerAPI from "../util/deezer_api"
 
     export default {
         name: "PossibleTrack",
@@ -64,10 +64,7 @@
             maxAttempts: 5,
             showTryAgain: false,
             hasLink: false,
-            api: new MusicAPI({
-                baseURL: `https://cors-anywhere.herokuapp.com/https://api.audd.io/findLyrics/`,
-                token: "36351251f0a904a517a8e22555117a41"
-            })
+            api: new DeezerAPI()
         }),
         methods: {
             correct() {
