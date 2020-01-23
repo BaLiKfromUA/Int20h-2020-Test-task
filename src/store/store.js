@@ -41,6 +41,14 @@ export default new Vuex.Store({
         },
         showVariants: state => {
             state.stage = "table"
+        },
+        resetApp: state => {
+            state.computerScore = 0;
+            state.userScore = 0;
+
+            state.stage = "start";
+            state.tracks = [];
+            state.playerWon = false;
         }
     },
     getters: {
