@@ -44,7 +44,7 @@
             },
 
             allResults() {
-                //todo: show all results
+                this.$store.commit("showVariants");
             }
         }
     }

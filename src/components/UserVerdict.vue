@@ -8,7 +8,7 @@
                             <v-card max-width="350" min-width="350" class="mx-auto">
                                 <v-toolbar color="#222255" dark>
                                     <v-toolbar-title>
-                                        Prediction - Attempt {{counter}}/{{maxAttempts}}
+                                        Prediction - Attempt {{attempt}}/{{attempts}}
                                     </v-toolbar-title>
                                 </v-toolbar>
                                 <v-card-title>{{artistName}}</v-card-title>
@@ -51,7 +51,8 @@
 </template>
 
 <script>
-    import MusicAPI from "../util/api"
+    import DeezerAPI from "../util/deezer_api"
+    import {mapGetters} from "vuex";
 
     export default {
         name: "PossibleTrack",
@@ -60,46 +61,59 @@
             trackName: "Track name",
             trackId: "85963521",
             link: "",
-            counter: 0,
-            maxAttempts: 5,
             showTryAgain: false,
             hasLink: false,
-            api: new MusicAPI({
-                baseURL: `https://cors-anywhere.herokuapp.com/https://api.audd.io/findLyrics/`,
-                token: "36351251f0a904a517a8e22555117a41"
-            })
+            api: new DeezerAPI()
         }),
+
+        computed: {
+            ...mapGetters(["attempt", "attempts"])
+        },
         methods: {
             correct() {
                 this.$store.commit("showResult", false);
             },
 
             incorrect() {
-                this.showTryAgain = true
+                this.showTryAgain = true;
+
+                if (this.attempt >= this.attempts) {
+                    this.$store.commit("showResult", true);
+                }
             },
 
-            tryAgainYes() {
-                // TODO: resend the request to API
+            async tryAgainYes() {
+                await this.getCurrentTrack()
             },
 
             tryAgainNo() {
                 this.$store.commit("showResult", true);
+            },
+
+            async getCurrentTrack() {
+                this.showTryAgain = false;
+                
+                if (this.attempt >= this.attempts) {
+                    this.$store.commit("showResult", true);
+                }
+
+                let track = this.$store.getters.getTopTrack(this.attempt);
+
+                if (track !== null) {
+                    this.artistName = track["artist"];
+                    this.trackName = track["track"];
+
+                    const response = await this.api.getTrackURL({artist: this.artistName, title: this.trackName});
+
+                    this.hasLink = !(response === false);
+                    this.link = response
+                } else {
+                    this.hasLink = false
+                }
             }
         },
         async mounted() {
-            let track = this.$store.getters.getTopTrack;
-
-            if (track !== null) {
-                this.artistName = track["artist"];
-                this.trackName = track["title"];
-
-                const response = await this.api.getTrackURL({artist: this.artistName, title: this.trackName});
-
-                this.hasLink = !(response === false);
-                this.link = response
-            } else {
-                this.hasLink = true
-            }
+            this.getCurrentTrack()
         }
     }
 </script>
