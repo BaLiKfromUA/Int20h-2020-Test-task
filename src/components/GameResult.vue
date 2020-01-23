@@ -11,6 +11,22 @@
                                 </v-toolbar-title>
                             </v-layout>
                         </v-toolbar>
+                        <v-card v-if="playerWon" dark color="#222255">
+                            <v-card-title>
+                                What was the correct answer?
+                            </v-card-title>
+                            <v-card-actions v-if="showCorrectAnswerFields">
+                                <v-text-field label="Artist name" v-model="correctArtistName"/>
+                                <v-spacer/>
+                                <v-text-field label="Song name" v-model="correctSongName"/>
+                            </v-card-actions>
+                            <v-card-text v-if="!showCorrectAnswerFields" class="headline">
+                                {{ correctArtistName }} - {{ correctSongName }}
+                            </v-card-text>
+                            <v-layout v-if="showCorrectAnswerFields" justify-center id="submitButton">
+                                <v-btn color="#222255" dark v-on:click="submitCorrectAnswer">Submit</v-btn>
+                            </v-layout>
+                        </v-card>
                         <v-img v-if="playerWon" :src="require('../assets/playerWinner.png')"/>
                         <v-img v-if="!playerWon" :src="require('../assets/computerWinner.png')"/>
                         <v-card-actions>
@@ -31,6 +47,12 @@
     export default {
         name: "Result",
 
+        data: () => ({
+            showCorrectAnswerFields: true,
+            correctArtistName: '',
+            correctSongName: ''
+        }),
+
         computed: {
             ...mapGetters(["playerWon"]),
 
@@ -45,11 +67,17 @@
 
             allResults() {
                 this.$store.commit("showVariants");
+            },
+
+            submitCorrectAnswer() {
+                this.showCorrectAnswerFields = false
             }
         }
     }
 </script>
 
 <style scoped>
-
+    #submitButton {
+        padding-bottom: 10px;
+    }
 </style>
