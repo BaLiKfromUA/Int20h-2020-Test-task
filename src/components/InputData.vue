@@ -97,6 +97,7 @@
 
 <script>
     import AudDAPI from "../util/audd_api"
+    import {getVariants, preprocessInputText} from "../util/preprocessing"
 
     export default {
         name: "StartPage",
@@ -126,17 +127,19 @@
                 }
             },
             async sendText() {
-                if (this.inputText === '') {
+                const inputText = preprocessInputText(this.inputText);
+
+                if (inputText === '') {//todo: send to validator
                     this.errorMessage = "test message"; // todo: fix message
                     this.dialog = true
                 } else {
-                    const response = await this.api.getSongByText({text: this.inputText});
+                    const response = await this.api.getSongByText({text: inputText});
 
                     if (response === undefined || response.data.status === "error") {
                         this.errorMessage = "Response error. Check console log!";
                         this.dialog = true
                     } else {
-                        let track_array = response.data.result;
+                        let track_array = getVariants(response);
                         this.$store.commit("showPredictionResult", track_array)
                     }
                 }

@@ -6,11 +6,9 @@ export default class DeezerAPI {
     }
 
     async getTrackURL({artist, title}) {
-        console.log({artist, title});
         let variants = await this.getTrackId({artist: artist, title: title});
         variants = variants.data;
 
-        console.log(variants);
         if (variants === undefined || variants["data"] === undefined || variants["data"].length === 0) {
             return false;
         }
