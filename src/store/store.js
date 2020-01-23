@@ -38,8 +38,10 @@ export default new Vuex.Store({
             }
 
             state.playerWon = result
+        },
+        showVariants: state => {
+            state.stage = "table"
         }
-
     },
     getters: {
         stage: state => {
@@ -59,6 +61,10 @@ export default new Vuex.Store({
             ++state.attempt;
 
             return state.tracks[state.attempt - 1];
+        },
+
+        tracks: state => {
+            return state.tracks;
         },
 
         playerWon: state => {
