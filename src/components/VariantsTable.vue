@@ -36,22 +36,6 @@
                 </v-flex>
             </v-layout>
         </v-container>
-<!--        <v-simple-table>-->
-<!--            <template v-slot:default>-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th class="text-left">Artist</th>-->
-<!--                    <th class="text-left">Track</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr v-for="item in tracks" :key="item['artist']">-->
-<!--                    <td>{{ item["artist"]}}</td>-->
-<!--                    <td>{{ item["track"] }}</td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </template>-->
-<!--        </v-simple-table>-->
     </v-app>
 </template>
 
