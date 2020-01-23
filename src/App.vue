@@ -2,17 +2,24 @@
     <v-app id="bg">
         <div>
             <v-toolbar app id="header">
-                <v-toolbar-title>
+                <v-toolbar-title class="hidden-xs-only">
                     MUSIC SEARCH APP
                 </v-toolbar-title>
                 <v-spacer/>
                 <span>Total score: {{playerScore}}:{{computerScore}} (You - Computer)</span>
+                <v-btn icon v-on:click="help">
+                    <v-icon color="white">
+                        mdi-information
+                    </v-icon>
+                </v-btn>
             </v-toolbar>
         </div>
         <Main/>
         <div>
             <v-footer class="pa-3" id="footer">
                 <span>&copy; 4 group </span>
+                <v-spacer/>
+                <v-btn v-on:click="resetData" dark color="#222255">Reset</v-btn>
             </v-footer>
         </div>
     </v-app>
@@ -30,6 +37,16 @@
                 //
             };
         },
+
+        methods: {
+            resetData: {
+                //todo: implement method
+            },
+            help: {
+                //todo: this one too
+            }
+        },
+
         components: {
             Main
         },
