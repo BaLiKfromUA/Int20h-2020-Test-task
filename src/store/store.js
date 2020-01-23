@@ -1,29 +1,32 @@
 import Vue from 'vue'
 import 'es6-promise/auto';
 import Vuex from 'vuex';
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+    plugins: [createPersistedState()],
     state: {
         stage: "start",
         tracks: [],
-        index: -1,
         playerWon: false,
         userScore: 0,
-        computerScore: 0
+        computerScore: 0,
+        attempt: 1,
+        attempts: 5
     },
     mutations: {
         startNewGame: state => {
             state.stage = "start";
             state.tracks = [];
-            state.index = -1;
             state.playerWon = false;
         },
         showPredictionResult(state, tracks) {
             state.stage = "verdict";
             state.tracks = tracks;
-            state.index = 0;
+            state.attempt = 0;
+            state.attempts = tracks.length < 5 ? tracks.length : 5;
         },
         showResult(state, result) {
             state.stage = "result";
@@ -43,16 +46,19 @@ export default new Vuex.Store({
             return state.stage;
         },
 
-        getIndex: state => {
-            return state.index;
+        attempt: state => {
+            return state.attempt;
         },
 
-        getTopTrack: state => {
-            if (state.index === -1 || state.index === state.tracks.length) {
-                return null;
-            }
+        attempts: state => {
+            return state.attempts;
+        },
 
-            return state.tracks[state.index++];
+        getTopTrack: state => attempt => {
+            console.log(attempt);
+            ++state.attempt;
+
+            return state.tracks[state.attempt - 1];
         },
 
         playerWon: state => {
