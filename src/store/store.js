@@ -14,7 +14,10 @@ export default new Vuex.Store({
         userScore: 0,
         computerScore: 0,
         attempt: 1,
-        attempts: 5
+        attempts: 5,
+        correctArtistName: "",
+        correctSongName: "",
+        showCorrectAnswerFields: false
     },
     mutations: {
         startNewGame: state => {
@@ -33,8 +36,17 @@ export default new Vuex.Store({
 
             if (result === true) {
                 ++state.userScore;
+
+                state.correctArtistName = "";
+                state.correctSongName = "";
+                state.showCorrectAnswerFields = true;
             } else {
                 ++state.computerScore;
+
+                let track = state.tracks[state.attempt - 1];
+                state.correctArtistName = track["artist"];
+                state.correctSongName = track["track"];
+                state.showCorrectAnswerFields = false;
             }
 
             state.playerWon = result
@@ -49,6 +61,15 @@ export default new Vuex.Store({
             state.stage = "start";
             state.tracks = [];
             state.playerWon = false;
+
+            state.correctArtistName = "";
+            state.correctSongName = "";
+        },
+
+        setCorrectAnswer(state, {artist, track}) {
+            state.showCorrectAnswerFields = false;
+            state.correctArtistName = artist;
+            state.correctSongName = track;
         }
     },
     getters: {
@@ -85,6 +106,18 @@ export default new Vuex.Store({
 
         computerScore: state => {
             return state.computerScore;
+        },
+
+        correctArtistName: state => {
+            return state.correctArtistName;
+        },
+
+        correctSongName: state => {
+            return state.correctSongName;
+        },
+
+        showCorrectAnswerFields: state => {
+            return state.showCorrectAnswerFields;
         }
     }
 })
