@@ -16,9 +16,9 @@
                                 What was the correct answer?
                             </v-card-title>
                             <v-card-actions v-if="showCorrectAnswerFields">
-                                <v-text-field label="Artist name" v-model="artist"/>
+                                <v-text-field label="Artist name" v-model="artist" @keypress="liveArtistCharCountDown"/>
                                 <v-spacer/>
-                                <v-text-field label="Song name" v-model="track"/>
+                                <v-text-field label="Song name" v-model="track" @keypress="liveSongCharCountDown"/>
                             </v-card-actions>
                             <v-card-text v-if="!showCorrectAnswerFields" class="headline">
                                 {{ correctArtistName }} - {{ correctSongName }}
@@ -38,11 +38,28 @@
                 </v-layout>
             </v-container>
         </v-content>
+
+        <!--ERROR POP UP MESSAGE-->
+        <v-row justify="center">
+            <v-dialog v-model="dialog" persistent max-width="290">
+                <v-card>
+                    <v-card-title class="headline">Input error!</v-card-title>
+                    <v-card-text>
+                        {{errorMessage}}
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </v-row>
     </v-app>
 </template>
 
 <script>
     import {mapGetters} from "vuex";
+    import {preprocessInputText} from "../util/preprocessing";
 
     export default {
         name: "Result",
@@ -50,6 +67,8 @@
         data: () => ({
             artist: "",
             track: "",
+            dialog: false,
+            errorMessage: "",
         }),
 
         computed: {
@@ -60,6 +79,19 @@
             }
         },
         methods: {
+
+            liveArtistCharCountDown($event) {
+                if (this.artist.length >= 30) {
+                    $event.preventDefault()
+                }
+            },
+
+            liveSongCharCountDown($event) {
+                if (this.track.length >= 30) {
+                    $event.preventDefault()
+                }
+            },
+
             playAgain() {
                 this.$store.commit("startNewGame");
             },
@@ -69,8 +101,15 @@
             },
 
             submitCorrectAnswer() {
-                //todo: validate
-                this.$store.commit("setCorrectAnswer", {artist: this.artist, track: this.track});
+                let artist = preprocessInputText(this.artist);
+                let track = preprocessInputText(this.track);
+
+                if (artist === '' || track === '') {
+                    this.errorMessage = "Please fill both of the text fields!";
+                    this.dialog = true
+                } else {
+                    this.$store.commit("setCorrectAnswer", {artist: artist, track: track});
+                }
             }
         }
     }
