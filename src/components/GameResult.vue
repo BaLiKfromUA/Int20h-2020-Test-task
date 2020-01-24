@@ -11,12 +11,28 @@
                                 </v-toolbar-title>
                             </v-layout>
                         </v-toolbar>
+                        <v-card dark color="#222255">
+                            <v-card-title>
+                                What was the correct answer?
+                            </v-card-title>
+                            <v-card-actions v-if="showCorrectAnswerFields">
+                                <v-text-field label="Artist name" v-model="artist"/>
+                                <v-spacer/>
+                                <v-text-field label="Song name" v-model="track"/>
+                            </v-card-actions>
+                            <v-card-text v-if="!showCorrectAnswerFields" class="headline">
+                                {{ correctArtistName }} - {{ correctSongName }}
+                            </v-card-text>
+                            <v-layout v-if="showCorrectAnswerFields" justify-center id="submitButton">
+                                <v-btn color="#222255" dark v-on:click="submitCorrectAnswer">Submit</v-btn>
+                            </v-layout>
+                        </v-card>
                         <v-img v-if="playerWon" :src="require('../assets/playerWinner.png')"/>
                         <v-img v-if="!playerWon" :src="require('../assets/computerWinner.png')"/>
                         <v-card-actions>
                             <v-btn dark color="#222255" large v-on:click="playAgain">Play again</v-btn>
                             <v-spacer/>
-                            <v-btn dark color="#222255" large v-on:click="allResults">All results</v-btn>
+                            <v-btn dark color="#222255" large v-on:click="allResults">All variants</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-layout>
@@ -31,8 +47,13 @@
     export default {
         name: "Result",
 
+        data: () => ({
+            artist: "",
+            track: "",
+        }),
+
         computed: {
-            ...mapGetters(["playerWon"]),
+            ...mapGetters(["playerWon", "correctArtistName", "correctSongName", "showCorrectAnswerFields"]),
 
             winner: function () {
                 return this.playerWon ? "Player" : "Computer";
@@ -44,12 +65,19 @@
             },
 
             allResults() {
-                //todo: show all results
+                this.$store.commit("showVariants");
+            },
+
+            submitCorrectAnswer() {
+                //todo: validate
+                this.$store.commit("setCorrectAnswer", {artist: this.artist, track: this.track});
             }
         }
     }
 </script>
 
 <style scoped>
-
+    #submitButton {
+        padding-bottom: 10px;
+    }
 </style>
