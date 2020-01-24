@@ -7,7 +7,7 @@
                 </v-toolbar-title>
                 <v-spacer/>
                 <span>Total score: {{playerScore}}:{{computerScore}} (You - Computer)</span>
-                <v-btn icon @click="dialog = true">
+                <v-btn icon @click="help = true">
                     <v-icon color="white">
                         mdi-information
                     </v-icon>
@@ -24,7 +24,7 @@
         </div>
 
         <v-row justify="center">
-            <v-dialog v-model="dialog" persistent max-width="500">
+            <v-dialog v-model="help" persistent max-width="500">
                 <v-card>
                     <v-card-title class="headline">Music Akinator</v-card-title>
                     <v-card-text>
@@ -41,7 +41,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="green darken-1" text @click="dialog = false">OK</v-btn>
+                        <v-btn color="green darken-1" text @click="help = false">OK</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -57,7 +57,7 @@
     export default {
         name: "App",
         data: () => ({
-            dialog: false,
+            help: false,
         }),
 
         methods: {

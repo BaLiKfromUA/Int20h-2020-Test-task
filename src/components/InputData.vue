@@ -129,7 +129,7 @@
             async sendText() {
                 const inputText = preprocessInputText(this.inputText);
 
-                if (inputText === '') {//todo: send to validator
+                if (inputText === '') {
                     this.errorMessage = "test message"; // todo: fix message
                     this.dialog = true
                 } else {
