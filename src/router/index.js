@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import recorder from 'vue-audio-recorder'
 
 Vue.use(VueRouter);
-Vue.use(recorder);//todo: transfer
+Vue.use(recorder);
 
 const routes = [];
 

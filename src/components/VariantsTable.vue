@@ -6,7 +6,7 @@
                     <v-card class="mx-auto">
                         <v-toolbar dark color="#222255">
                             <v-toolbar-title>
-                                Results
+                                Variants
                             </v-toolbar-title>
                         </v-toolbar>
                         <v-simple-table dark>
