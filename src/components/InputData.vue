@@ -33,13 +33,17 @@
                                         <v-card>
                                             <v-textarea color="teal"
                                                         v-model="inputText"
-                                                        counter="counter">
+                                                        counter="counter"
+                                                        @keypress="liveCharCountDown">
                                                 <template v-slot:label>
                                                     <div>
                                                         Lyrics
                                                     </div>
                                                 </template>
                                             </v-textarea>
+                                            <v-card-text v-if="tooLong">
+                                                Too many characters!
+                                            </v-card-text>
                                         </v-card>
                                     </v-tab-item>
                                     <!--                                        <v-tab-item>-->
@@ -104,6 +108,7 @@
         data: () => ({
             inputText: '',
             counter: 0,
+            tooLong: false,
 
             selectedTab: 0,
 
@@ -115,7 +120,15 @@
                 token: "36351251f0a904a517a8e22555117a41"
             })
         }),
+
         methods: {
+
+            liveCharCountDown($event) {
+                if (this.inputText.length >= 100) {
+                    $event.preventDefault()
+                }
+            },
+
             callback(msg) {
                 console.debug('Event: ', msg)
             },
@@ -130,7 +143,7 @@
                 const inputText = preprocessInputText(this.inputText);
 
                 if (inputText === '') {
-                    this.errorMessage = "test message"; // todo: fix message
+                    this.errorMessage = "A part of lyrics needs to be written!";
                     this.dialog = true
                 } else {
                     const response = await this.api.getSongByText({text: inputText});
