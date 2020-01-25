@@ -13,7 +13,7 @@ This is a test challenge for selection on the Int20h hackathon.
 - [Valentin Yuhimenko](https://github.com/BaLiKfromUA)
 - [Danylo Kozhushko](https://github.com/ozgreat)
 - [Glib Rusanov](https://github.com/LinetTheFox)
-- [DED](https://github.com/Ink11)
+- [Denys Kibiriev](https://github.com/Ink11)
 
 
 ## Demo
