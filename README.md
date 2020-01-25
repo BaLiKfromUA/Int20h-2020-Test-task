@@ -18,7 +18,7 @@ This is a test challenge for selection on the Int20h hackathon.
 
 ## Demo
 
-- PC/laptop [View]() [View]()
+- PC/laptop [View](https://youtu.be/Rtg48KpwS-A) [View](https://youtu.be/L43vvmiY0nA)
 - Mobile [View](https://youtu.be/nJ1-sZGj_7g) [View](https://youtu.be/cioUikw5VOg)
 
 ## Live
