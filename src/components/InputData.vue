@@ -117,7 +117,7 @@
 
             api: new AudDAPI({
                 baseURL: `https://cors-anywhere.herokuapp.com/https://api.audd.io/findLyrics/`,
-                token: "36351251f0a904a517a8e22555117a41"
+                token: "a3f41af15f1a04e63a33174fe5265252"
             })
         }),
 
