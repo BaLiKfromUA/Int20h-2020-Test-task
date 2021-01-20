@@ -2,7 +2,7 @@
 
 ## Intro
 
-This is a test challenge for selection on the Int20h hackathon.
+This is a test challenge for selection on the Int20h-2020 hackathon.
 
 ### Task
 
